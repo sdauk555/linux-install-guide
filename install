@@ -79,7 +79,7 @@ reboot now
 nmcli device wifi connect *SSID* password *password*
 
 # Enable multilib
-(uncomment [multilib] seciton in /etc/pacman.conf
+uncomment [multilib] seciton in /etc/pacman.conf
 
 # Rerun reflector
 reflector --verbose --latest 10 --protocol https --protocol http --country "United States" --download-timeout 30 --sort rate --save /etc/pacman.d/mirrorlist
