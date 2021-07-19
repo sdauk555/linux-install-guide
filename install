@@ -1,0 +1,139 @@
+# Step by step cuystom arch install guide (not a script)
+
+# Connect to internet
+iwctl --passphrase *password* station wlan0 connect *SSID*
+
+# Run timedatectl
+timedatectl set-ntp true
+
+# Partition (use fdisk)
+/dev/nvme0n1p1: EFI 500MB
+/dev/nvme0n1p2: SWAP 3G
+/dev/nvme0n1p3: ROOT (rest of disk)
+
+# Format partitions
+mkfs.vfat -F 32 /dev/nvme0n1p1
+mkswap /dev/nvme0n1p2
+mkfs.ext4 /dev/nvme0n1p3
+
+# Mount
+mount /dev/nvme0n1p3 /mnt
+swapon /dev/nvme0n1p2
+
+# Run reflector
+reflector --verbose --latest 10 --protocol https --protocol http --country "United States" --download-timeout 30 --sort rate --save /etc/pacman.d/mirrorlist
+
+# Install base system
+pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-firmware networkmanager vim tlp
+
+# Generate fstab
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Chroot
+arch-chroot /mnt
+
+# Set locales
+ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
+hwclock --systohc
+echo "en_US.UTF-8 UTF-8 > /etc/locale.gen
+locale-gen
+touch /etc/locale.conf
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+
+# Configure networking
+touch /etc/hostname
+echo *hostname* > /etc/hostname
+cat > /etc/hosts << EOF
+> 127.0.0.1	localhost
+> ::1		localhost
+> 127.0.1.1	*hostname*.localdomain *hostname*
+> EOF
+
+# Create user
+useradd -m *username*
+
+# Passwords
+passwd	# (for root)
+passwd *username*	# (for user)
+
+# Install sudo
+pacman -Sy sudo
+EDITOR=vim visudo	# add "*username* ALL=(ALL) ALL"
+
+# Install grub
+pacman -S grub efibootmgr
+mkdir /boot/efi
+mount /dev/nvme0n1p1 /boot/efi
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# Enable services
+systemctl enable NetworkManager.service
+systemctl enable tlp.service
+
+# Reboot
+exit
+reboot now
+
+# Enable multilib
+(uncomment [multilib] seciton in /etc/pacman.conf
+
+# Rerun reflector
+reflector --verbose --latest 10 --protocol https --protocol http --country "United States" --download-timeout 30 --sort rate --save /etc/pacman.d/mirrorlist
+
+# Install essentials
+sudo pacman -Syu
+sudo pacman -S alacritty file-roller firefox git neofetch bashtop  nm-connection-editor p7zip texinfo  pavucontrol pcmanfm pulseaudio pulseaudio-alsa pulseaudio-bluetooth python thunderbird wget curl wireless_tools
+
+# Install Graphics
+sudo pacman -S xorg-server xorg-apps arandr feh flameshot lib32-mesa nitrogen picom polkit-gnome vulkan-intel xf86-video-intel xss-lock
+
+# Install other
+sudo pacman -S discord hplip libreoffice-still lolcat qbittorrent
+
+# Configure git
+git config --global user.name *username*
+git config --global user.email *email*
+git config --global credential.helper store
+
+# Install yay
+cd /opt
+sudo git clone https://aur.archlinux.org/yay.git
+sudo chown -R sam:sam ./yay
+cd yay
+makepkg -si
+
+# Install AUR packages
+yay -S i3lock-color betterlockscreen font-manager timeshift vmware-workstation spotify
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import - (run if spotify doesn't work)
+
+# Install DWM
+mkdir repos	# This goes in the home directory
+cd repos
+git clone https://github.com/sdauk555/dwm-fork.git
+git clone https://github.com/sdauk555/slstatus-fork.git
+cd dwm-fork
+make
+sudo make clean install
+cd ..
+cd slstatus-fork
+make
+sudo make clean install
+
+# Copy dotfiles
+cd repos
+git clone https://github.com/sdauk555/dotfiles.git
+cd dotfiles/root
+cp -r etc /
+cp -r home /
+
+# Copy Documents and Pictures folders from backup drive
+
+# Reboot
+sudo reboot now
+
+# After reboot launch programs and login/configure as needed
+# Install MATLAB from UNM website
+# Install intellij from website (remember to symlink .sh files to /usr/bin)
+# For vmware remember to add "mks.gl.allowBlacklistedDrivers = TRUE" to .vmware/preferences
+# Backup with timeshift
