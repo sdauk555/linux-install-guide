@@ -75,6 +75,9 @@ systemctl enable tlp.service
 exit
 reboot now
 
+# Connect to internet
+nmcli device wifi connect *SSID* password *password*
+
 # Enable multilib
 (uncomment [multilib] seciton in /etc/pacman.conf
 
