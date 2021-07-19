@@ -94,6 +94,9 @@ sudo pacman -S xorg-server xorg-apps arandr feh flameshot lib32-mesa nitrogen pi
 # Install other
 sudo pacman -S discord hplip libreoffice-still lolcat qbittorrent
 
+# Install fonts
+sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-nerd-fonts-symbols
+
 # Configure git
 git config --global user.name *username*
 git config --global user.email *email*
@@ -139,4 +142,5 @@ sudo reboot now
 # Install MATLAB from UNM website
 # Install intellij from website (remember to symlink .sh files to /usr/bin)
 # For vmware remember to add "mks.gl.allowBlacklistedDrivers = TRUE" to .vmware/preferences
+# Extract microsoft fonts from ISO image
 # Backup with timeshift
