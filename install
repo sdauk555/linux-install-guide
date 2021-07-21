@@ -92,7 +92,7 @@ sudo pacman -S alacritty file-roller firefox git neofetch bashtop  nm-connection
 sudo pacman -S xorg-server xorg-apps arandr feh flameshot lib32-mesa nitrogen picom polkit-gnome vulkan-intel xf86-video-intel xss-lock
 
 # Install other
-sudo pacman -S discord hplip libreoffice-still lolcat qbittorrent
+sudo pacman -S discord python-pyqt5 hplip libreoffice-still lolcat qbittorrent
 
 # Install fonts
 sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-nerd-fonts-symbols
