@@ -110,7 +110,7 @@ cd yay
 makepkg -si
 
 # Install AUR packages
-yay -S i3lock-color betterlockscreen font-manager timeshift vmware-workstation spotify
+yay -S i3lock-color betterlockscreen font-manager timeshift vmware-workstation spotify vim-youcompleteme-git
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import - (run if spotify doesn't work)
 
 # Install DWM
