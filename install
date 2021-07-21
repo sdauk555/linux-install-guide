@@ -138,6 +138,12 @@ cp -r home /
 # Reboot
 sudo reboot now
 
+# [Printing]
+# Ensure hplip and all dependencies are installed
+# Ensure cups is installed and cups.service is running
+# (Optional) Install system-config-printer
+# Run hp-setup AS ROOT (Will not work otherwise)
+
 # After reboot launch programs and login/configure as needed
 # Install MATLAB from UNM website
 # Install intellij from website (remember to symlink .sh files to /usr/bin)
