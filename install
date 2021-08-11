@@ -1,4 +1,4 @@
-# Step by step cuystom arch install guide (not a script)
+# Step by step custom arch install guide (not a script)
 
 # Connect to internet
 iwctl --passphrase *password* station wlan0 connect *SSID*
@@ -151,7 +151,6 @@ sudo reboot now
 # Run hp-setup AS ROOT (Will not work otherwise)
 
 # After reboot launch programs and login/configure as needed
-# Install MATLAB from UNM website
 # Install intellij from website (remember to symlink .sh files to /usr/bin)
 # For vmware remember to add "mks.gl.allowBlacklistedDrivers = TRUE" to .vmware/preferences
 # Extract microsoft fonts from ISO image
