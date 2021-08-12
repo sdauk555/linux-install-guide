@@ -85,7 +85,7 @@ reflector --verbose --latest 10 --protocol https --protocol http --country "Unit
 
 # Install essentials
 sudo pacman -Syu
-sudo pacman -S alacritty file-roller firefox git neofetch bashtop  nm-connection-editor p7zip texinfo  pavucontrol pcmanfm pulseaudio pulseaudio-alsa pulseaudio-bluetooth python thunderbird wget curl wireless_tools
+sudo pacman -S alacritty file-roller firefox git neofetch bashtop  nm-connection-editor p7zip texinfo  pavucontrol pcmanfm pulseaudio pulseaudio-alsa pulseaudio-bluetooth python thunderbird wget curl wireless_tools xdotool
 
 # Install Graphics
 sudo pacman -S xorg-server xorg-apps arandr feh flameshot lib32-mesa nitrogen picom polkit-gnome vulkan-intel xf86-video-intel xss-lock
@@ -109,7 +109,7 @@ cd yay
 makepkg -si
 
 # Install AUR packages
-yay -S i3lock-color betterlockscreen font-manager timeshift vmware-workstation spotify vim-youcompleteme-git
+yay -S i3lock-color betterlockscreen font-manager timeshift vmware-workstation spotify libinput-gestures
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import - (run if spotify doesn't work)
 
 # Install DWM
@@ -138,6 +138,9 @@ git clone https://github.com/sdauk555/dotfiles.git
 cd dotfiles/root
 cp -r etc /
 cp -r home /
+
+# Setup libinput-gestures
+libinput-gestures-setup start autostart
 
 # Copy Documents and Pictures folders from backup drive
 
