@@ -150,6 +150,7 @@ sudo reboot now
 # [Printing]
 # Ensure hplip and all dependencies are installed
 # Ensure cups is installed and cups.service is running
+# Install sane xsane skanlite
 # (Optional) Install system-config-printer
 # Run hp-setup AS ROOT (Will not work otherwise)
 
