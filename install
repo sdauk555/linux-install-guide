@@ -17,8 +17,10 @@ mkswap /dev/nvme0n1p2
 mkfs.ext4 /dev/nvme0n1p3
 
 # Mount
-mount /dev/nvme0n1p3 /mnt
 swapon /dev/nvme0n1p2
+mount /dev/nvme0n1p3 /mnt
+mkdir /mnt/boot/efi
+mount /dev/nvme0n1p1 /mnt/boot/efi
 
 # Run reflector
 reflector --verbose --latest 10 --protocol https --protocol http --country "United States" --download-timeout 30 --sort rate --save /etc/pacman.d/mirrorlist
@@ -43,11 +45,9 @@ echo LANG=en_US.UTF-8 > /etc/locale.conf
 # Configure networking
 touch /etc/hostname
 echo *hostname* > /etc/hostname
-cat > /etc/hosts << EOF
-> 127.0.0.1	localhost
-> ::1		localhost
-> 127.0.1.1	*hostname*.localdomain *hostname*
-> EOF
+vim /etc/hosts  # 127.0.0.1	localhost
+                # ::1		    localhost
+                # 127.0.1.1	*hostname*.localdomain *hostname*
 
 # Create user
 useradd -m *username*
@@ -63,8 +63,6 @@ EDITOR=vim visudo	# uncomment wheel group
 
 # Install grub
 pacman -S grub efibootmgr
-mkdir /boot/efi
-mount /dev/nvme0n1p1 /boot/efi
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH
 grub-mkconfig -o /boot/grub/grub.cfg
 
