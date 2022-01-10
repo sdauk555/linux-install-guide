@@ -51,7 +51,8 @@ vim /etc/hosts  # 127.0.0.1	localhost
 
 # Create user
 useradd -m *username*
-usermod -aG wheel *username*
+usermod -aG wheel *username* # add user to wheel group
+usermod -aG input *username* # add user to input group
 
 # Passwords
 passwd	# (for root)
@@ -84,7 +85,7 @@ reflector --verbose --latest 10 --protocol https --protocol http --country "Unit
 
 # Install essentials
 sudo pacman -Syu
-sudo pacman -S alacritty file-roller firefox git neofetch bpytop  nm-connection-editor p7zip texinfo  pavucontrol pcmanfm pipewire pipewire-pulse pipewire-alsa pipewire-jack alsa-utils python thunderbird wget curl wireless_tools xdotool
+sudo pacman -S alacritty file-roller firefox git neofetch bpytop  nm-connection-editor p7zip texinfo  pavucontrol pcmanfm pipewire pipewire-pulse pipewire-alsa pipewire-jack alsa-utils python thunderbird wget curl wireless_tools xdotool wmctrl
 
 # Install Graphics
 sudo pacman -S xorg-server xorg-apps arandr feh flameshot lib32-mesa nitrogen picom polkit-gnome vulkan-intel xf86-video-intel xss-lock lxappearnce
