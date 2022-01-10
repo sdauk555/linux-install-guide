@@ -8,7 +8,7 @@ timedatectl set-ntp true
 
 # Partition (use fdisk)
 /dev/nvme0n1p1: EFI 500MB
-/dev/nvme0n1p2: SWAP 3G
+/dev/nvme0n1p2: SWAP 4G
 /dev/nvme0n1p3: ROOT (rest of disk)
 
 # Format partitions
@@ -24,7 +24,7 @@ swapon /dev/nvme0n1p2
 reflector --verbose --latest 10 --protocol https --protocol http --country "United States" --download-timeout 30 --sort rate --save /etc/pacman.d/mirrorlist
 
 # Install base system
-pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-firmware networkmanager vim  
+pacstrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware networkmanager vim  
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -51,6 +51,7 @@ cat > /etc/hosts << EOF
 
 # Create user
 useradd -m *username*
+usermod -aG wheel *username*
 
 # Passwords
 passwd	# (for root)
@@ -58,7 +59,7 @@ passwd *username*	# (for user)
 
 # Install sudo
 pacman -Sy sudo
-EDITOR=vim visudo	# add "*username* ALL=(ALL) ALL"
+EDITOR=vim visudo	# uncomment wheel group
 
 # Install grub
 pacman -S grub efibootmgr
@@ -85,13 +86,13 @@ reflector --verbose --latest 10 --protocol https --protocol http --country "Unit
 
 # Install essentials
 sudo pacman -Syu
-sudo pacman -S alacritty file-roller firefox git neofetch bashtop  nm-connection-editor p7zip texinfo  pavucontrol pcmanfm pulseaudio pulseaudio-alsa pulseaudio-bluetooth python thunderbird wget curl wireless_tools xdotool
+sudo pacman -S alacritty file-roller firefox git neofetch bpytop  nm-connection-editor p7zip texinfo  pavucontrol pcmanfm pipewire pipewire-pulse pipewire-alsa pipewire-jack alsa-utils python thunderbird wget curl wireless_tools xdotool
 
 # Install Graphics
-sudo pacman -S xorg-server xorg-apps arandr feh flameshot lib32-mesa nitrogen picom polkit-gnome vulkan-intel xf86-video-intel xss-lock
+sudo pacman -S xorg-server xorg-apps arandr feh flameshot lib32-mesa nitrogen picom polkit-gnome vulkan-intel xf86-video-intel xss-lock lxappearnce
 
 # Install other
-sudo pacman -S python-pyqt5 hplip libreoffice-still lolcat qbittorrent
+sudo pacman -S python-pyqt5 hplip libreoffice-fresh lolcat qbittorrent virtualbox
 
 # Install fonts
 sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-nerd-fonts-symbols
@@ -109,7 +110,7 @@ cd yay
 makepkg -si
 
 # Install AUR packages
-yay -S i3lock-color betterlockscreen font-manager timeshift vmware-workstation spotify libinput-gestures
+yay -S i3lock-color betterlockscreen font-manager timeshift spotify libinput-gestures networkmanager-dmenu
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import - (run if spotify doesn't work)
 
 # Install DWM
@@ -135,9 +136,7 @@ auto-cpufreq --install
 # Copy dotfiles
 cd repos
 git clone https://github.com/sdauk555/dotfiles.git
-cd dotfiles/root
-cp -r etc /
-cp -r home /
+# Copy dotfiles to respective directories
 
 # Setup libinput-gestures
 libinput-gestures-setup start autostart
@@ -150,12 +149,16 @@ sudo reboot now
 # [Printing]
 # Ensure hplip and all dependencies are installed
 # Ensure cups is installed and cups.service is running
-# Install sane xsane skanlite
-# (Optional) Install system-config-printer
+# Install skanlite
 # Run hp-setup AS ROOT (Will not work otherwise)
 
 # After reboot launch programs and login/configure as needed
+# Remove firefox from picom shadows
+# Edit about:config mouse something to fix drop down menu in firefox
 # Install intellij from website (remember to symlink .sh files to /usr/bin)
-# For vmware remember to add "mks.gl.allowBlacklistedDrivers = TRUE" to .vmware/preferences
 # Extract microsoft fonts from ISO image
 # Backup with timeshift
+
+[Setting Wallpaper]
+nitrogen ~/Pictures
+betterlockscreen -U <path>
