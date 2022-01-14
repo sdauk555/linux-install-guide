@@ -94,7 +94,7 @@ sudo pacman -S xorg-server xorg-apps arandr feh flameshot nitrogen picom polkit-
 sudo pacman -S pavucontrol pulseaudio pulseaudio-alsa pulseaudio-bluetooth alsa-utils bluez blueman
 
 # Install other
-sudo pacman -S python-pyqt5 hplip libreoffice-fresh gimp lolcat qbittorrent virtualbox  # (use dkms for virtualbox if asked)
+sudo pacman -S python-pyqt5 gedit hplip libreoffice-fresh gimp lolcat qbittorrent virtualbox  # (use dkms for virtualbox if asked)
 
 # Install fonts
 sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-nerd-fonts-symbols ttf-fira-code
