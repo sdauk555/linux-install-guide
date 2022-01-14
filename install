@@ -94,7 +94,7 @@ sudo pacman -S xorg-server xorg-apps arandr feh flameshot lib32-mesa nitrogen pi
 sudo pacman -S python-pyqt5 hplip libreoffice-fresh lolcat qbittorrent virtualbox
 
 # Install fonts
-sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-nerd-fonts-symbols
+sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-nerd-fonts-symbols ttf-fira-code
 
 # Configure git
 git config --global user.name *username*
