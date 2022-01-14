@@ -14,7 +14,7 @@ timedatectl set-ntp true
 # Format partitions
 mkfs.vfat -F 32 /dev/nvme0n1p1
 mkswap /dev/nvme0n1p2
-mkfs.ext4 /dev/nvme0n1p3
+mkfs.btrfs /dev/nvme0n1p3
 
 # Mount
 swapon /dev/nvme0n1p2
@@ -85,16 +85,24 @@ reflector --verbose --latest 10 --protocol https --protocol http --country "Unit
 
 # Install essentials
 sudo pacman -Syu
-sudo pacman -S alacritty file-roller firefox git neofetch bpytop  nm-connection-editor p7zip texinfo  pavucontrol pcmanfm pulseaudio pulseaudio-alsa pulseaudio-bluetooth python thunderbird wget curl wireless_tools xdotool wmctrl
+sudo pacman -S alacritty file-roller firefox git neofetch bpytop  nm-connection-editor p7zip texinfo pcmanfm python thunderbird wget curl wireless_tools xdotool wmctrl
 
 # Install Graphics
-sudo pacman -S xorg-server xorg-apps arandr feh flameshot lib32-mesa nitrogen picom polkit-gnome vulkan-intel xf86-video-intel xss-lock lxappearnce
+sudo pacman -S xorg-server xorg-apps arandr feh flameshot nitrogen picom polkit-gnome vulkan-intel xf86-video-intel xss-lock lxappearnce dmenu
+
+# Install audio
+sudo pacman -S pavucontrol pulseaudio pulseaudio-alsa pulseaudio-bluetooth alsa-utils bluez blueman
 
 # Install other
-sudo pacman -S python-pyqt5 hplip libreoffice-fresh lolcat qbittorrent virtualbox
+sudo pacman -S python-pyqt5 hplip libreoffice-fresh gimp lolcat qbittorrent virtualbox  # (use dkms for virtualbox if asked)
 
 # Install fonts
 sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-nerd-fonts-symbols ttf-fira-code
+
+# Install zsh
+sudo pacman -S zsh zsh-autosuggestions
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # Configure git
 git config --global user.name *username*
@@ -109,11 +117,11 @@ cd yay
 makepkg -si
 
 # Install AUR packages
-yay -S i3lock-color betterlockscreen font-manager timeshift spotify libinput-gestures networkmanager-dmenu
+yay -S i3lock-color betterlockscreen font-manager ly spotify libinput-gestures networkmanager-dmenu rpi-imager zoom teams
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import - (run if spotify doesn't work)
 
 # Install DWM
-mkdir repos	# This goes in the home directory
+mkdir git	# This goes in the home directory
 cd repos
 git clone https://github.com/sdauk555/dwm-fork.git
 git clone https://github.com/sdauk555/slstatus-fork.git
@@ -137,8 +145,13 @@ cd repos
 git clone https://github.com/sdauk555/dotfiles.git
 # Copy dotfiles to respective directories
 
-# Setup libinput-gestures
-libinput-gestures-setup start autostart
+# Configure fstab
+sudo vim /etc/fstab
+# ssd,noatime,space_cache,commit=120,compress=zstd,discard=async (add to / device)
+
+# Enable services
+systemctl enable ly.service
+systemctl enable fstrim.timer
 
 # Copy Documents and Pictures folders from backup drive
 
