@@ -150,8 +150,9 @@ sudo vim /etc/fstab
 # ssd,noatime,space_cache,commit=120,compress=zstd,discard=async (add to / device)
 
 # Enable services
-systemctl enable ly.service
-systemctl enable fstrim.timer
+sudo systemctl enable ly.service
+sudo systemctl enable fstrim.timer
+sudo systemctl enable bluetooth
 
 # Copy Documents and Pictures folders from backup drive
 
