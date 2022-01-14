@@ -93,6 +93,9 @@ sudo pacman -S xorg-server xorg-apps arandr feh flameshot nitrogen picom polkit-
 # Install audio
 sudo pacman -S pavucontrol pulseaudio pulseaudio-alsa pulseaudio-bluetooth alsa-utils bluez blueman
 
+# Install power management
+sudo pacman -S thermald power-profiles-daemon
+
 # Install other
 sudo pacman -S python-pyqt5 gedit hplip libreoffice-fresh gimp lolcat qbittorrent virtualbox  # (use dkms for virtualbox if asked)
 
@@ -133,13 +136,6 @@ cd slstatus-fork
 make
 sudo make clean install
 
-# Install auto-cpufreq  
-cd repos  
-git clone https://github.com/AdnanHodzic/auto-cpufreq.git  
-cd auto-cpufreq  
-./auto-cpufreq-installer  
-auto-cpufreq --install  
-
 # Copy dotfiles
 cd repos
 git clone https://github.com/sdauk555/dotfiles.git
@@ -153,6 +149,8 @@ sudo vim /etc/fstab
 sudo systemctl enable ly.service
 sudo systemctl enable fstrim.timer
 sudo systemctl enable bluetooth
+sudo systemctl enable power-profiles-daemon
+sudo systemctl enable thermald
 
 # Copy Documents and Pictures folders from backup drive
 
