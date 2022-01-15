@@ -85,7 +85,7 @@ reflector --verbose --latest 10 --protocol https --protocol http --country "Unit
 
 # Install essentials
 sudo pacman -Syu
-sudo pacman -S alacritty file-roller firefox code git neofetch bpytop nm-connection-editor p7zip texinfo gvfs pcmanfm udiskie python jdk-openjdk jre-openjdk fuse thunderbird wget curl wireless_tools xdotool wmctrl
+sudo pacman -S alacritty file-roller fwupd firefox code git neofetch bpytop nm-connection-editor p7zip texinfo gvfs pcmanfm udiskie python jdk-openjdk jre-openjdk fuse thunderbird wget curl wireless_tools xdotool wmctrl
 
 # Install Graphics
 sudo pacman -S xorg-server xorg-apps arandr feh flameshot nitrogen picom polkit-gnome vulkan-intel xf86-video-intel xss-lock lxappearnce dmenu
