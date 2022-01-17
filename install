@@ -100,7 +100,7 @@ sudo pacman -S thermald power-profiles-daemon
 sudo pacman -S python-pyqt5 gedit eog celluloid hplip libreoffice-fresh gimp lolcat qbittorrent virtualbox  # (use dkms for virtualbox if asked)
 
 # Install fonts
-sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-nerd-fonts-symbols ttf-fira-code
+sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-fira-code
 
 # Install zsh
 sudo pacman -S zsh zsh-autosuggestions
@@ -120,7 +120,7 @@ cd yay
 makepkg -si
 
 # Install AUR packages
-yay -S i3lock-color betterlockscreen font-manager ly spotify libinput-gestures networkmanager-dmenu rpi-imager zoom teams
+yay -S i3lock-color betterlockscreen font-manager ly spotify libinput-gestures nerd-fonts-complete networkmanager-dmenu rpi-imager zoom teams
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import - (run if spotify doesn't work)
 
 # Install DWM
